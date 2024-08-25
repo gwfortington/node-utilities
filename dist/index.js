@@ -25,9 +25,7 @@ const objectsEqual = (object1, object2) => {
 exports.objectsEqual = objectsEqual;
 const pick = (object, keys) => {
     return keys.reduce((newObject, key) => {
-        if (typeof object[key] !== 'undefined') {
-            newObject[key] = object[key];
-        }
+        newObject[key] = object[key];
         return newObject;
     }, {});
 };

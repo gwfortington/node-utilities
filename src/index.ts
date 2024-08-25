@@ -26,9 +26,7 @@ export const objectsEqual = (
 export const pick = (object: Record<string, any>, keys: string[]) => {
   return keys.reduce(
     (newObject, key) => {
-      if (typeof object[key] !== 'undefined') {
-        newObject[key] = object[key];
-      }
+      newObject[key] = object[key];
       return newObject;
     },
     {} as Record<string, any>,
