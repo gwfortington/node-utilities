@@ -1,34 +1,50 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pick = exports.objectsEqual = void 0;
-const objectsEqual = (object1, object2) => {
-    const keys1 = Object.keys(object1);
-    const keys2 = Object.keys(object2);
-    if (keys1.length !== keys2.length) {
+exports.pickObjectKeys = exports.areObjectsEqual = void 0;
+/**
+ * Compares two objects to see if they are equal.
+ *
+ * This function compares all keys that exist in both objects, and returns false if any of the values are not equal.
+ * If a value is a Date, the comparison is done by comparing the date values of the two dates.
+ *
+ * @param firstObject - The first object to compare.
+ * @param secondObject - The second object to compare.
+ * @returns A boolean indicating if the two objects are equal.
+ */
+const areObjectsEqual = (firstObject, secondObject) => {
+    const firstObjectKeys = Object.keys(firstObject);
+    const secondObjectKeys = Object.keys(secondObject);
+    if (firstObjectKeys.length !== secondObjectKeys.length) {
         return false;
     }
-    let value1;
-    let value2;
-    for (const key of keys1) {
-        value1 = object1[key];
-        value2 = object2[key];
-        if (value1 instanceof Date) {
-            value1 = value1.getDate();
-            value2 = value2.getDate();
+    for (const key of firstObjectKeys) {
+        const firstObjectValue = firstObject[key];
+        const secondObjectValue = secondObject[key];
+        if (firstObjectValue instanceof Date) {
+            const firstObjectDateValue = firstObjectValue.getDate();
+            const secondObjectDateValue = secondObjectValue.getDate();
+            if (firstObjectDateValue !== secondObjectDateValue) {
+                return false;
+            }
         }
-        if (value1 !== value2) {
+        else if (firstObjectValue !== secondObjectValue) {
             return false;
         }
     }
     return true;
 };
-exports.objectsEqual = objectsEqual;
-const pick = (object, keys) => {
+exports.areObjectsEqual = areObjectsEqual;
+/**
+ * Creates a new object with a subset of the keys from the given object.
+ *
+ * @param object - The object to pick from.
+ * @param keys - The keys to pick from the object.
+ * @returns A new object with the picked keys.
+ */
+const pickObjectKeys = (object, keys) => {
     return keys.reduce((newObject, key) => {
-        if (typeof object[key] !== 'undefined') {
-            newObject[key] = object[key];
-        }
+        newObject[key] = object[key];
         return newObject;
     }, {});
 };
-exports.pick = pick;
+exports.pickObjectKeys = pickObjectKeys;
