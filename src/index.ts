@@ -23,11 +23,11 @@ export const areObjectsEqual = (
     const firstObjectValue = firstObject[key];
     const secondObjectValue = secondObject[key];
 
-    if (firstObjectValue instanceof Date) {
-      const firstObjectDateValue = firstObjectValue.getDate();
-      const secondObjectDateValue = secondObjectValue.getDate();
+    if (firstObjectValue instanceof Date && secondObjectValue instanceof Date) {
+      const firstObjectDateValue = firstObjectValue.getTime();
+      const secondObjectDateValue = secondObjectValue.getTime();
 
-      if (firstObjectDateValue !== secondObjectDateValue) {
+      if (firstObjectDateValue != secondObjectDateValue) {
         return false;
       }
     } else if (firstObjectValue !== secondObjectValue) {
@@ -45,18 +45,17 @@ export const areObjectsEqual = (
  * @param keys - The keys to pick from the object.
  * @returns A new object with the picked keys.
  */
-export const pickObjectKeys = <
-  T extends Record<string, unknown>,
-  K extends keyof T,
->(
-  object: T,
-  keys: K[],
-): Pick<T, K> => {
+export const pickObjectKeys = (
+  object: Record<string, any>,
+  keys: string[],
+): Record<string, any> => {
   return keys.reduce(
     (newObject, key) => {
-      newObject[key] = object[key];
+      if (key in object) {
+        newObject[key] = object[key];
+      }
       return newObject;
     },
-    {} as Pick<T, K>,
+    {} as Record<string, any>,
   );
 };

@@ -20,10 +20,10 @@ const areObjectsEqual = (firstObject, secondObject) => {
     for (const key of firstObjectKeys) {
         const firstObjectValue = firstObject[key];
         const secondObjectValue = secondObject[key];
-        if (firstObjectValue instanceof Date) {
-            const firstObjectDateValue = firstObjectValue.getDate();
-            const secondObjectDateValue = secondObjectValue.getDate();
-            if (firstObjectDateValue !== secondObjectDateValue) {
+        if (firstObjectValue instanceof Date && secondObjectValue instanceof Date) {
+            const firstObjectDateValue = firstObjectValue.getTime();
+            const secondObjectDateValue = secondObjectValue.getTime();
+            if (firstObjectDateValue != secondObjectDateValue) {
                 return false;
             }
         }
@@ -43,7 +43,9 @@ exports.areObjectsEqual = areObjectsEqual;
  */
 const pickObjectKeys = (object, keys) => {
     return keys.reduce((newObject, key) => {
-        newObject[key] = object[key];
+        if (key in object) {
+            newObject[key] = object[key];
+        }
         return newObject;
     }, {});
 };

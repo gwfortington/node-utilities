@@ -16,4 +16,4 @@ export declare const areObjectsEqual: (firstObject: Record<string, any>, secondO
  * @param keys - The keys to pick from the object.
  * @returns A new object with the picked keys.
  */
-export declare const pickObjectKeys: <T extends Record<string, unknown>, K extends keyof T>(object: T, keys: K[]) => Pick<T, K>;
+export declare const pickObjectKeys: (object: Record<string, any>, keys: string[]) => Record<string, any>;
