@@ -15,7 +15,7 @@ export const areObjectsEqual = (
   const firstObjectKeys = Object.keys(firstObject);
   const secondObjectKeys = Object.keys(secondObject);
 
-  if (firstObjectKeys.length !== secondObjectKeys.length) {
+  if (firstObjectKeys.length != secondObjectKeys.length) {
     return false;
   }
 
