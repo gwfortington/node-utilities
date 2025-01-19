@@ -1,7 +1,7 @@
 {
   "name": "node-utilities",
   "version": "1.0.0",
-  "description": "Utility functions",
+  "description": "A collection of utility functions for Node.js",
   "author": "Grant Fortington",
   "private": true,
   "license": "MIT",
